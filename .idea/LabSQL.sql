@@ -2,16 +2,16 @@ CREATE DATABASE authors_db;
 USE authors_db;
 
 CREATE TABLE authors(
-    author_id VARCHAR(3) PRIMARY KEY ,
-    name VARCHAR(50)
+                        author_id VARCHAR(3) PRIMARY KEY ,
+                        name VARCHAR(50)
 );
 CREATE TABLE articles(
-    article_id INT PRIMARY KEY ,
-    author_id VARCHAR(3),
-    title VARCHAR(100),
-    word_count INT,
-    views INT,
-    FOREIGN KEY (author_id) REFERENCES authors(author_id)
+                         article_id INT PRIMARY KEY ,
+                         author_id VARCHAR(3),
+                         title VARCHAR(100),
+                         word_count INT,
+                         views INT,
+                         FOREIGN KEY (author_id) REFERENCES authors(author_id)
 );
 INSERT INTO authors(author_id, name)
 VALUES  ('A1','Maria Charlotte'),
@@ -31,27 +31,27 @@ CREATE DATABASE flight_agency_db;
 USE flight_agency_db;
 
 CREATE TABLE customer(
-    customer_id VARCHAR(3) PRIMARY KEY ,
-    customer_name VARCHAR(100),
-    customer_status VARCHAR(20),
-    customer_mileage INT
+                         customer_id VARCHAR(3) PRIMARY KEY ,
+                         customer_name VARCHAR(100),
+                         customer_status VARCHAR(20),
+                         customer_mileage INT
 );
 CREATE TABLE aircraft(
-    aircraft_id INT PRIMARY KEY ,
-    aircraft_name VARCHAR(20),
-    total_seats INT
+                         aircraft_id INT PRIMARY KEY ,
+                         aircraft_name VARCHAR(20),
+                         total_seats INT
 );
 CREATE table flight(
-    flight_number VARCHAR(10) PRIMARY KEY ,
-    aircraft_id INT,
-    flight_mileage INT,
-    FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
+                       flight_number VARCHAR(10) PRIMARY KEY ,
+                       aircraft_id INT,
+                       flight_mileage INT,
+                       FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
 );
 CREATE TABLE passenger_list(
-    flight_Id VARCHAR(10),
-    FOREIGN KEY (flight_Id) REFERENCES flight(flight_number),
-    customer_id VARCHAR(3),
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+                               flight_Id VARCHAR(10),
+                               FOREIGN KEY (flight_Id) REFERENCES flight(flight_number),
+                               customer_id VARCHAR(3),
+                               FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
 );
 
 INSERT INTO customer (customer_id, customer_name, customer_status,customer_mileage)
@@ -120,8 +120,8 @@ GROUP BY c.customer_status;
 #In the Airline database write the SQL script to find the most often booked aircraft by gold status members (this should require a join).
 SELECT a.aircraft_name, COUNT(p.flight_id) AS booking_count
 FROM aircraft a
-JOIN passenger_list p ON a.aircraft_id = p.flight_id
-JOIN customer c ON p.customer_id = c.customer_status
+         JOIN passenger_list p ON a.aircraft_id = p.flight_id
+         JOIN customer c ON p.customer_id = c.customer_status
 WHERE c.customer_status = 'Gold'
 GROUP BY a.aircraft_name
 ORDER BY booking_count DESC
